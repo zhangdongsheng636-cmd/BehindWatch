@@ -20,8 +20,10 @@ class MigrationTests(unittest.TestCase):
             with patch.object(paths,'CONTROL',control),patch.object(paths,'LOCATOR',control/'location.json'),patch.object(paths,'_data',control):
                 with patch.object(Path,'replace',side_effect=error):
                     paths.select_directory(target)
-                self.assertEqual(paths.data_dir(),target)
-                self.assertEqual(json.loads(paths.LOCATOR.read_text(encoding='utf-8'))['data_dir'],str(target))
+                # Windows temp directories may use an 8.3 alias (RUNNER~1).
+                # The app deliberately persists the resolved absolute path.
+                self.assertEqual(paths.data_dir(),target.resolve())
+                self.assertEqual(json.loads(paths.LOCATOR.read_text(encoding='utf-8'))['data_dir'],str(target.resolve()))
 
     def test_copy_preserves_source_and_rewrites_snapshot_links(self):
         with tempfile.TemporaryDirectory() as t:
@@ -38,7 +40,7 @@ class MigrationTests(unittest.TestCase):
             self.assertEqual((dst/'settings.json').read_bytes(),(src/'settings.json').read_bytes())
             self.assertEqual((src/'events.sqlite3').read_bytes(),before)
             with closing(sqlite3.connect(dst/'events.sqlite3')) as c:
-                self.assertEqual(c.execute('SELECT image FROM events').fetchone()[0],str(dst/'snapshots/a.jpg'))
+                self.assertEqual(c.execute('SELECT image FROM events').fetchone()[0],str((dst/'snapshots/a.jpg').resolve()))
             self.assertEqual((dst/'snapshots/a.jpg').read_bytes(),b'test-only-image')
 
     def test_nonempty_target_never_overwritten(self):
@@ -67,7 +69,7 @@ class MigrationTests(unittest.TestCase):
                 self.assertTrue(store.close())
                 copy_data(src,dst)
                 paths.select_directory(dst)
-                self.assertEqual(json.loads(paths.LOCATOR.read_text(encoding='utf-8'))['data_dir'],str(dst))
+                self.assertEqual(json.loads(paths.LOCATOR.read_text(encoding='utf-8'))['data_dir'],str(dst.resolve()))
                 self.assertEqual(Config.load().repeat,47)
                 c.repeat=51;c.save()
                 self.assertEqual(json.loads((src/'settings.json').read_text())['repeat'],47)
