@@ -72,8 +72,8 @@ class MigrationTests(unittest.TestCase):
                 self.assertEqual(json.loads(paths.LOCATOR.read_text(encoding='utf-8'))['data_dir'],str(dst.resolve()))
                 self.assertEqual(Config.load().repeat,47)
                 c.repeat=51;c.save()
-                self.assertEqual(json.loads((src/'settings.json').read_text())['repeat'],47)
-                self.assertEqual(json.loads((dst/'settings.json').read_text())['repeat'],51)
+                self.assertEqual(json.loads((src/'settings.json').read_text(encoding='utf-8'))['repeat'],47)
+                self.assertEqual(json.loads((dst/'settings.json').read_text(encoding='utf-8'))['repeat'],51)
                 store=Store();store.submit('after',{});self.assertTrue(store.close())
                 with closing(sqlite3.connect(src/'events.sqlite3')) as db:
                     self.assertEqual(db.execute('SELECT COUNT(*) FROM events').fetchone()[0],1)
