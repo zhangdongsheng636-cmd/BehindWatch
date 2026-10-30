@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="330" viewBox="0 0 1200 330">
+<rect width="1200" height="330" rx="24" fill="#103c38"/>
+<circle cx="1050" cy="165" r="210" fill="none" stroke="#24564f" stroke-width="1"/>
+<circle cx="1050" cy="165" r="150" fill="none" stroke="#356a60" stroke-width="1"/>
+<circle cx="1050" cy="165" r="90" fill="none" stroke="#5d9c8c" stroke-width="1"/>
+<path d="M1050 165 L1060 15 A150 150 0 0 1 1199 165 Z" fill="#a7e6bc" opacity=".12"/>
+<circle cx="1110" cy="85" r="8" fill="#f0b963"/>
+<circle cx="970" cy="195" r="5" fill="#a7e6bc"/>
+<rect x="56" y="46" width="92" height="32" rx="16" fill="#2a5f53"/>
+<text x="102" y="68" text-anchor="middle" fill="#d2f3df" font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="600">WINDOWS</text>
+<text x="56" y="145" fill="#fff" font-family="Segoe UI,Arial,sans-serif" font-size="62" font-weight="700">BehindWatch</text>
+<text x="58" y="200" fill="#c6e7db" font-family="Microsoft YaHei,PingFang SC,sans-serif" font-size="28">打工人的后视镜</text>
+<text x="58" y="268" fill="#9fc4b9" font-family="Microsoft YaHei,PingFang SC,sans-serif" font-size="19">本地 AI 人体检测　/　工位背后雷达　/　低干扰提醒</text>
+<path d="M932 165 Q1050 65 1168 165 Q1050 265 932 165" fill="#17483f" stroke="#b6eacb" stroke-width="5"/>
+<circle cx="1050" cy="165" r="35" fill="#b6eacb"/>
+<circle cx="1060" cy="153" r="10" fill="#fff"/>
+</svg>

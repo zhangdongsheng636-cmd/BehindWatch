@@ -1,0 +1,26 @@
+name: Windows tests
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Install runtime dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Verify bundled model checksum
+        run: python -c "import hashlib,json,pathlib; p=pathlib.Path('models'); m=json.loads((p/'manifest.json').read_text()); assert hashlib.sha256((p/'yolox_nano.onnx').read_bytes()).hexdigest()==m['sha256']"
+      - name: Run tests without accessing a camera
+        env:
+          BEHINDWATCH_DATA: ${{ runner.temp }}\BehindWatch-tests
+        run: python -m unittest discover -s tests -v

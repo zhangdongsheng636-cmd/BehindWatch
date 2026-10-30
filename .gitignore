@@ -1,0 +1,25 @@
+# Personal runtime data must never enter this repository.
+.venv*/
+__pycache__/
+*.py[cod]
+build*/
+dist*/
+release-assets/
+*.zip
+*.log
+*.sqlite*
+*.db
+*.lock
+!requirements.lock
+.env
+.env.*
+settings.json
+settings.tmp
+location.json
+location.previous.json
+location.tmp
+startup-error.txt
+snapshots/
+验证结果/
+*.onnx.tmp
+.DS_Store
